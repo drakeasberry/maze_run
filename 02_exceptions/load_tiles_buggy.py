@@ -5,30 +5,40 @@
 # This code contains at least 9 defects.
 # Try to fix them all based on the error messages.
 
-imprt pygame
-from pygame import imagge, Rect
+import pygame #Error 1 syntax imprt <- import
+#Error 9 missing Surface
+from pygame import image, Rect, Surface #Error 5 Syntax imagge <- image
 
 
-TILE_POSITIONS = [
+TILE_POSITIONS = [ #Error 2 no closing bracket
     ('#', 0, 0),  # wall
-    (' ', 0, 1)   # floor
+    (' ', 0, 1),  # floor Error 4 was missing EOL comma
     ('.', 2, 0),  # dot
-
+    # missing key value '*'
+    ('*', 3, 0), # player
+]
 SIZE = 32
 
-image = 'tiles.xpm'
+#image = '../images/tiles.xpm'
 
-
-def load_tiles()
+def get_tile_rect(x,y):
+    """
+    Converts tile indices to a pygame.RECT
+    :param x:
+    :param y:
+    :return:
+    """
+    return  Rect(x*SIZE, y*SIZE, SIZE, SIZE)
+def load_tiles(): #Error 3 EOL colon was missing
     """
     Load tiles from an image file into a dictionary.
     Returns a tuple of (image, tile_dict)
     """
     tiles = {}
-    tile_img = image.loaad('tiless.xpm')
-    for x, y in TILEPOSITIONS:
-        rect = Rect(x*SIZE, y*SIZE, SIZE, SIZE)
-        tiles[symbol] = rect
+    tile_img = image.load('../images/tiles.xpm') #Error 6 Syntax loaad<-load, tiless<-tiles file path
+    for symbol, x, y in TILE_POSITIONS: #Error 7 syntax TILEPOSITIONS<-TILE_POSITIONS
+        #rect = Rect(x*SIZE, y*SIZE, SIZE, SIZE) #Error 8 Too many arguements needed function call
+        tiles[symbol] = get_tile_rect(x,y) #need to call new function written for omitted line above
     return tile_img, tiles
 
 
@@ -55,4 +65,5 @@ class Tile:
         char = achar
 
 t = Tile('#', 0, 0)
-print(t.char)
+
+#print(t.char)
